@@ -221,6 +221,10 @@ public abstract class BaseConstructor {
     }
 
     protected Object constructObjectNoCheck(Node node) {
+        if (recursiveObjects.contains(node)) {
+            throw new ConstructorException(null, null, "found unconstructable recursive node",
+                    node.getStartMark());
+        }
         recursiveObjects.add(node);
         Construct constructor = getConstructor(node);
         Object data = (constructedObjects.containsKey(node)) ? constructedObjects.get(node)
@@ -228,10 +232,10 @@ public abstract class BaseConstructor {
 
         finalizeConstruction(node, data);
         constructedObjects.put(node, data);
+        recursiveObjects.remove(node);
         if (node.isTwoStepsConstruction()) {
             constructor.construct2ndStep(node, data);
         }
-        recursiveObjects.remove(node);
         return data;
     }
 
