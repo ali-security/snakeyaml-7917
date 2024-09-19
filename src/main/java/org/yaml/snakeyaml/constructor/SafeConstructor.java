@@ -93,7 +93,7 @@ public class SafeConstructor extends BaseConstructor {
                     if (keyNode.isTwoStepsConstruction()) {
                         if(!loadingConfig.getAllowRecursiveKeys()) {
                           throw new YAMLException(
-                                "Recursive key for mapping is detected but it is not configured to be allowed.");
+                                "Recursive key is detected but it is not configured to be allowed.");
                         } else {
                             try {
                                 key.hashCode();// check circular dependencies
