@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.comments.CommentType;
 import org.yaml.snakeyaml.error.Mark;
 import org.yaml.snakeyaml.error.YAMLException;
@@ -180,6 +181,7 @@ public final class ScannerImpl implements Scanner {
 
     // A flag that indicates if comments should be emitted
     private boolean emitComments;
+    private final LoaderOptions loaderOptions;
 
     // Variables related to simple keys treatment. See PyYAML.
 
@@ -217,12 +219,17 @@ public final class ScannerImpl implements Scanner {
     private Map<Integer, SimpleKey> possibleSimpleKeys;
 
     public ScannerImpl(StreamReader reader) {
+        this(reader, new LoaderOptions());
+    }
+
+    public ScannerImpl(StreamReader reader,  LoaderOptions options) {
         this.emitComments = false;
         this.reader = reader;
         this.tokens = new ArrayList<Token>(100);
         this.indents = new ArrayStack<Integer>(10);
         // The order in possibleSimpleKeys is kept for nextPossibleSimpleKey()
         this.possibleSimpleKeys = new LinkedHashMap<Integer, SimpleKey>();
+        this.loaderOptions = options;
         fetchStreamStart();// Add the STREAM-START token.
     }
 
@@ -304,6 +311,10 @@ public final class ScannerImpl implements Scanner {
      * Fetch one or more tokens from the StreamReader.
      */
     private void fetchMoreTokens() {
+        if (reader.getIndex() > loaderOptions.getCodePointLimit()) {
+            throw new YAMLException("The incoming YAML document exceeds the limit: " + loaderOptions.getCodePointLimit());
+        }
+            
         // Eat whitespaces and process comments until we reach the next token.
         scanToNextToken();
         // Remove obsolete possible simple keys.

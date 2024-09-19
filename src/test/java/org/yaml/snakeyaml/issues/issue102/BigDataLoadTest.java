@@ -15,6 +15,8 @@
  */
 package org.yaml.snakeyaml.issues.issue102;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import org.yaml.snakeyaml.LoaderOptions;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -29,13 +32,17 @@ public class BigDataLoadTest extends TestCase {
     private static final int SIZE = 5000;
 
     public void testBigStringData() {
-        Yaml yaml = new Yaml();
+        LoaderOptions options = new LoaderOptions();
+        options.setCodePointLimit(10000000);
+        Yaml yaml = new Yaml(options);
         List<?> loaded = (List<?>) yaml.load(getLongYamlDocument(SIZE));
         assertEquals(SIZE, loaded.size());
     }
 
     public void testBigStreamData() {
-        Yaml yaml = new Yaml();
+        LoaderOptions options = new LoaderOptions();
+        options.setCodePointLimit(10000000);
+        Yaml yaml = new Yaml(options);
         StringReader buffer = new StringReader(getLongYamlDocument(SIZE));
         List<?> loaded = (List<?>) yaml.load(buffer);
         assertEquals(SIZE, loaded.size());

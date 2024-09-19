@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.Version;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.comments.CommentType;
 import org.yaml.snakeyaml.error.Mark;
 import org.yaml.snakeyaml.error.YAMLException;
@@ -137,6 +138,10 @@ public class ParserImpl implements Parser {
 
     public ParserImpl(StreamReader reader, boolean emitComments) {
         this(new ScannerImpl(reader).setEmitComments(emitComments));
+    }
+
+    public ParserImpl(StreamReader reader, LoaderOptions options) {
+        this(new ScannerImpl(reader, options));
     }
 
     public ParserImpl(Scanner scanner) {
