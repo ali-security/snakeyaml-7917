@@ -15,6 +15,9 @@
  */
 package org.yaml.snakeyaml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoaderOptions {
 
     private boolean allowDuplicateKeys = true;
@@ -25,6 +28,106 @@ public class LoaderOptions {
     private boolean enumCaseSensitive = true;
     private int nestingDepthLimit = 50;
     private int codePointLimit = 100 * 1024;
+  private List<String> denyList = new ArrayList<String>();
+
+  public LoaderOptions() {
+    denyList.add("javax.script.ScriptEngineManager");
+    denyList.add("URLClassLoader");
+    denyList.add("bsh.XThis");
+    denyList.add("bsh.Interpreter");
+    denyList.add("com.mchange.v2.c3p0.PoolBackedDataSource");
+    denyList.add("com.mchange.v2.c3p0.impl.PoolBackedDataSourceBase");
+    denyList.add("clojure.lang.PersistentArrayMap");
+    denyList.add("clojure.inspector.proxy$javax.swing.table.AbstractTableModel$ff19274a");
+    denyList.add("org.apache.commons.beanutils.BeanComparator");
+    denyList.add("org.apache.commons.collections.Transformer");
+    denyList.add("org.apache.commons.collections.functors.ChainedTransformer");
+    denyList.add("org.apache.commons.collections.functors.ConstantTransformer");
+    denyList.add("org.apache.commons.collections.functors.InstantiateTransformer");
+    denyList.add("org.apache.commons.collections.map.LazyMap");
+    denyList.add("org.apache.commons.collections.functors.InvokerTransformer");
+    denyList.add("org.apache.commons.collections.keyvalue.TiedMapEntry");
+    denyList.add("org.apache.commons.collections4.comparators.TransformingComparator");
+    denyList.add("org.apache.commons.collections4.functors.InvokerTransformer");
+    denyList.add("org.apache.commons.collections4.functors.ChainedTransformer");
+    denyList.add("org.apache.commons.collections4.functors.ConstantTransformer");
+    denyList.add("org.apache.commons.collections4.functors.InstantiateTransformer");
+    denyList.add("org.apache.commons.fileupload.disk.DiskFileItem");
+    denyList.add("org.apache.commons.io.output.DeferredFileOutputStream");
+    denyList.add("org.apache.commons.io.output.ThresholdingOutputStream");
+    denyList.add("org.apache.wicket.util.upload.DiskFileItem");
+    denyList.add("org.apache.wicket.util.io.DeferredFileOutputStream");
+    denyList.add("org.apache.wicket.util.io.ThresholdingOutputStream");
+    denyList.add("org.codehaus.groovy.runtime.ConvertedClosure");
+    denyList.add("org.codehaus.groovy.runtime.MethodClosure");
+    denyList.add("org.hibernate.engine.spi.TypedValue");
+    denyList.add("org.hibernate.tuple.component.AbstractComponentTuplizer");
+    denyList.add("org.hibernate.tuple.component.PojoComponentTuplizer");
+    denyList.add("org.hibernate.type.AbstractType");
+    denyList.add("org.hibernate.type.ComponentType");
+    denyList.add("org.hibernate.type.Type");
+    denyList.add("org.hibernate.EntityMode");
+    denyList.add("com.sun.rowset.JdbcRowSetImpl");
+    denyList.add("org.jboss.interceptor.builder.InterceptionModelBuilder");
+    denyList.add("org.jboss.interceptor.builder.MethodReference");
+    denyList.add("org.jboss.interceptor.proxy.DefaultInvocationContextFactory");
+    denyList.add("org.jboss.interceptor.proxy.InterceptorMethodHandler");
+    denyList.add("org.jboss.interceptor.reader.ClassMetadataInterceptorReference");
+    denyList.add("org.jboss.interceptor.reader.DefaultMethodMetadata");
+    denyList.add("org.jboss.interceptor.reader.ReflectiveClassMetadata");
+    denyList.add("org.jboss.interceptor.reader.SimpleInterceptorMetadata");
+    denyList.add("org.jboss.interceptor.spi.instance.InterceptorInstantiator");
+    denyList.add("org.jboss.interceptor.spi.metadata.InterceptorReference");
+    denyList.add("org.jboss.interceptor.spi.metadata.MethodMetadata");
+    denyList.add("org.jboss.interceptor.spi.model.InterceptionType");
+    denyList.add("org.jboss.interceptor.spi.model.InterceptionModel");
+    denyList.add("sun.rmi.server.UnicastRef");
+    denyList.add("sun.rmi.transport.LiveRef");
+    denyList.add("sun.rmi.transport.tcp.TCPEndpoint");
+    denyList.add("java.rmi.server.RemoteObject");
+    denyList.add("java.rmi.server.RemoteRef");
+    denyList.add("java.rmi.server.UnicastRemoteObject");
+    denyList.add("sun.rmi.server.ActivationGroupImpl");
+    denyList.add("sun.rmi.server.UnicastServerRef");
+    denyList.add("org.springframework.aop.framework.AdvisedSupport");
+    denyList.add("net.sf.json.JSONObject");
+    denyList.add("org.jboss.weld.interceptor.builder.InterceptionModelBuilder");
+    denyList.add("org.jboss.weld.interceptor.builder.MethodReference");
+    denyList.add("org.jboss.weld.interceptor.proxy.DefaultInvocationContextFactory");
+    denyList.add("org.jboss.weld.interceptor.proxy.InterceptorMethodHandler");
+    denyList.add("org.jboss.weld.interceptor.reader.ClassMetadataInterceptorReference");
+    denyList.add("org.jboss.weld.interceptor.reader.DefaultMethodMetadata");
+    denyList.add("org.jboss.weld.interceptor.reader.ReflectiveClassMetadata");
+    denyList.add("org.jboss.weld.interceptor.reader.SimpleInterceptorMetadata");
+    denyList.add("org.jboss.weld.interceptor.spi.instance.InterceptorInstantiator");
+    denyList.add("org.jboss.weld.interceptor.spi.metadata.InterceptorReference");
+    denyList.add("org.jboss.weld.interceptor.spi.metadata.MethodMetadata");
+    denyList.add("org.jboss.weld.interceptor.spi.model.InterceptionModel");
+    denyList.add("org.jboss.weld.interceptor.spi.model.InterceptionType");
+    denyList.add("org.python.core.PyObject");
+    denyList.add("org.python.core.PyBytecode");
+    denyList.add("org.python.core.PyFunction");
+    denyList.add("org.mozilla.javascript");
+    denyList.add("org.apache.myfaces.context.servlet.FacesContextImpl");
+    denyList.add("org.apache.myfaces.context.servlet.FacesContextImplBase");
+    denyList.add("org.apache.myfaces.el.CompositeELResolver");
+    denyList.add("org.apache.myfaces.el.unified.FacesELContext");
+    denyList.add("org.apache.myfaces.view.facelets.el.ValueExpressionMethodExpression");
+    denyList.add("com.sun.syndication.feed.impl.ObjectBean");
+    denyList.add("org.springframework.beans.factory.ObjectFactory");
+    denyList.add("org.springframework.aop.framework.AdvisedSupport");
+    denyList.add("org.springframework.aop.target.SingletonTargetSource");
+    denyList.add("com.vaadin.data.util.NestedMethodProperty");
+    denyList.add("com.vaadin.data.util.PropertysetItem");
+    denyList.add("org.springframework.beans.factory.config.PropertyPathFactoryBean");
+    denyList.add("org.springframework.aop.support.DefaultBeanFactoryPointcutAdvisor");
+    denyList.add("javax.management.BadAttributeValueExpException");
+    denyList.add("org.apache.commons.configuration.ConfigurationMap");
+    denyList.add("com.mchange.v2.c3p0.WrapperConnectionPoolDataSource");
+    denyList.add("com.mchange.v2.c3p0.JndiRefForwardingDataSource");
+    denyList.add("com.sun.rowset.JdbcRowSetImpl");
+    denyList.add("org.eclipse.jetty.plus.jndi.Resource");
+  }
 
     public boolean isAllowDuplicateKeys() {
         return allowDuplicateKeys;
@@ -142,4 +245,22 @@ public class LoaderOptions {
     public void setCodePointLimit(int codePointLimit) {
         this.codePointLimit = codePointLimit;
     }
+
+  /**
+   * Get the part of the class name which cannot be instantiated. 
+   *
+   * @return the strings which may not be a part of a class to be created
+   */
+  public List<String> getDenyList() {
+    return denyList;
+  }
+  /**
+   * Set the parts of the class name which may not be created to avoid unintended code execution.
+   *
+   * @param denyList - the parts of the class name to prohibit
+   */
+  public void setDenyList(List<String> denyList) {
+    this.denyList = denyList;
+  }
+
 }
