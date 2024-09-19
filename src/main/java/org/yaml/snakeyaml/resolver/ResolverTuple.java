@@ -24,6 +24,10 @@ final class ResolverTuple {
     private final Pattern regexp;
     private final int limit;
 
+    public ResolverTuple(Tag tag, Pattern regexp) {
+        this(tag, regexp, 1024);
+    }
+        
     public ResolverTuple(Tag tag, Pattern regexp, int limit) {
         this.tag = tag;
         this.regexp = regexp;
